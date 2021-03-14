@@ -67,6 +67,7 @@ int Destroy(struct List list)
 		free(p);
 		p = la;
 	}
+	list.head = list.tail = NULL;
 	return 0;
 }
 
