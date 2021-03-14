@@ -78,7 +78,7 @@ struct List AddList(struct List plist, struct List qlist)
 		li = plist;
 		plist = qlist;
 		qlist = li;
-	}//½»»»p¡¢q£¬±£³ÖµİÔö
+	}//Â½Â»Â»Â»pÂ¡Â¢qÂ£Â¬Â±Â£Â³Ã–ÂµÃÃ”Ã¶
 	struct List list = create();
 	if (list.head == NULL)
 		return list;
@@ -125,7 +125,7 @@ int SeperateNode(struct List list)
 {
 	struct List sep_list = create();
 	struct Node* s = list.head;
-	while (s->next != NULL)
+	while (s != NULL && s->next != NULL)
 	{
 		if (s->next->data % 2 == 0)
 		{
