@@ -32,7 +32,7 @@ int main()
 		s->next = s->next->next;
 		free(p);
 	}
+	list.head = list.tail = NULL;
 	
-	Destroy(list);
 	return 0;
 }
