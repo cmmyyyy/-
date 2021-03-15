@@ -8,7 +8,7 @@ int main()
 {
 	struct List list = create();
 	struct Node* s;
-	int m, n, i;
+	int m, n, i, j;
 	scanf("%d %d", &m, &n);
 	for (i = 1;i <= m;i++)
 	{
@@ -16,7 +16,8 @@ int main()
 	}
 	s = list.head;
 	list.tail->next = list.head->next;
-	while (list.head->next->data != list.tail->data)
+	j = m;
+	while (j--)
 	{
 		i = n;
 		while (--i)
