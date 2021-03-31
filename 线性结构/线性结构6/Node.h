@@ -33,7 +33,7 @@ struct List NodeInsert(struct List list, int num)
 {
 	struct Node* q = NewNode();
 	q->data = num;
-	q->next=NULL;
+	q->next = NULL;
 	struct Node* p = list.head;
 	while (p->next && num > p->next->data)
 	{
@@ -69,12 +69,14 @@ int Print(struct List list)
 int Destroy(struct List list)
 {
 	struct Node* p = list.head;
-	while (p)
+	while (p->next != NULL)
 	{
 		struct Node* la = p->next;
 		free(p);
 		p = la;
 	}
+	free(p);
+	list.head = list.tail = NULL;
 	return 0;
 }
 

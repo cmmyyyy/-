@@ -1,4 +1,4 @@
-#include <stdio.h>
+ï»¿#include <stdio.h>
 #include <assert.h>
 #include <malloc.h>
 typedef int Dataelem;
@@ -19,6 +19,7 @@ struct Node* NewNode()
 {
 	struct Node* p = (struct Node*)malloc(sizeof(struct Node));
 	assert(p != NULL);
+	p->next = NULL;
 	return p;
 }
 struct List create()
@@ -33,7 +34,7 @@ struct List NodeInsert(struct List list, int num)
 {
 	struct Node* q = NewNode();
 	q->data = num;
-	q->next=NULL;
+	q->next = NULL;
 	struct Node* p = list.head;
 	while (p->next && num > p->next->data)
 	{
@@ -53,16 +54,15 @@ struct List NodeInsert(struct List list, int num)
 
 int Print(struct List list)
 {
-	printf("(");
+	
 	struct Node* p = list.head->next;
 	printf("%d", p->data);
 	p = p->next;
 	while (p)
 	{
-		printf(",%d", p->data);
+		printf(" %d", p->data);
 		p = p->next;
 	}
-	printf(")");
 	return 0;
 }
 
@@ -75,42 +75,48 @@ int Destroy(struct List list)
 		free(p);
 		p = la;
 	}
+	list.head = list.tail = NULL;
 	return 0;
 }
 
 struct List AddList(struct List plist, struct List qlist)
 {
-	if (plist.head->next->data > qlist.head->next->data)
+	if (plist.head != NULL && qlist.head != NULL && plist.head->next->data > qlist.head->next->data)
 	{
 		struct List li;
 		li = plist;
 		plist = qlist;
 		qlist = li;
-	}//½»»»p¡¢q£¬±£³ÖµÝÔö
+	}//
 	struct List list = create();
 	if (list.head == NULL)
 		return list;
 	struct Node* s = NewNode();
-	s = plist.head->next;
-	while (s != NULL)
-	{
-		struct Node* p = NewNode();
-		p->data = s->data;
-		list.tail->next = p;
-		p->next = NULL;
-		list.tail = p;
-		s = s->next;
+	if (plist.head != NULL) {
+		s = plist.head->next;
+		while (s != NULL)
+		{
+			struct Node* p = NewNode();
+			p->data = s->data;
+			list.tail->next = p;
+			p->next = NULL;
+			list.tail = p;
+			s = s->next;
+		}
 	}
-	s = qlist.head->next;
-	while (s != NULL)
-	{
-		struct Node* p = NewNode();
-		p->data = s->data;
-		list.tail->next = p;
-		p->next = NULL;
-		list.tail = p;
-		s = s->next;
+	if (qlist.head != NULL) {
+		s = qlist.head->next;
+		while (s != NULL)
+		{
+			struct Node* p = NewNode();
+			p->data = s->data;
+			list.tail->next = p;
+			p->next = NULL;
+			list.tail = p;
+			s = s->next;
+		}
 	}
+
 	return list;
 }
 
@@ -128,4 +134,3 @@ struct List ListInvert(struct List list)
 	}
 	return i_list;
 }
-
